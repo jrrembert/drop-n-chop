@@ -6,6 +6,7 @@ L.DNC.TurfOperation = L.DNC.Operation.extend({
         minFeatures : 1,
         maxFeatures : 0,
         orderImport : false,
+        icon: 'no icon specified',
         // iterable : true
         additionalArgs: null // Kludge to handle no dialog for input
     },

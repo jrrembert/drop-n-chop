@@ -11,7 +11,7 @@ L.DNC.Operation = L.DNC.Menu.extend({
     _buildDomElement: function () {
         var div = document.createElement('div');
         div.innerHTML += '<button class="menu-button menu-button-action" id="' +
-            this.title + '">' + this.title + '</button>';
+            this.title + '">' + this.title + '<img class="icon" src="icons/' + this.options.icon + '"></button>';
         return div.children[0];
     },
 

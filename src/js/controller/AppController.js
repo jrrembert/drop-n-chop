@@ -20,15 +20,18 @@ L.DNC.AppController = L.Class.extend({
             .addChild( new L.DNC.Menu( "Geoprocessing Tools", {} )
                 .addChild(new L.DNC.TurfOperation('buffer', {
                     maxFeatures: 1,
-                    additionalArgs: 0.1
+                    additionalArgs: 0.1,
+                    icon: 'icon-turf-buffer.svg'
                 }))
                 .addChild(new L.DNC.TurfOperation('union', {
                     minFeatures: 2,
-                    maxFeatures: 2
+                    maxFeatures: 2,
+                    icon: 'icon-turf-union.svg'
                 }))
                 .addChild(new L.DNC.TurfOperation('erase', {
                     minFeatures: 2,
-                    maxFeatures: 2
+                    maxFeatures: 2,
+                    icon: 'icon-turf-erase.svg'
                 }))
             );
 
