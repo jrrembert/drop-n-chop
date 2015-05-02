@@ -104,6 +104,16 @@ module.exports = function(grunt) {
         base: 'dist'
       },
       src: ['**']
+    },
+    imagemin: {
+      dynamic: {
+        files: [{
+          expand: true,
+          cwd: 'src/icons',
+          src: ['**/**.svg'],
+          dest: 'dist/icons/'
+        }]
+      }
     }
   });
 
@@ -115,10 +125,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-imagemin');
   grunt.loadNpmTasks('grunt-gh-pages');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-processhtml');
   grunt.loadNpmTasks('grunt-focus');
+  
 
   // Tasks.
   grunt.registerTask('test', ['karma']);
@@ -126,12 +138,15 @@ module.exports = function(grunt) {
   // JS
   grunt.registerTask('js:dev', ['jshint', 'concat', 'uglify', 'test']);
   grunt.registerTask('js:prod', ['concat', 'uglify']);
-  //CSS
+  // CSS
   grunt.registerTask('css:dev', ['sass']);
   grunt.registerTask('css:prod', ['sass']);
+  // IMAGES
+  grunt.registerTask('img:dev', ['imagemin'])
+  grunt.registerTask('img:prod', ['imagemin'])
   // Build wrappers
-  grunt.registerTask('build:dev', ['js:dev', 'css:dev', 'processhtml:dev']);
-  grunt.registerTask('build:prod', ['js:prod', 'css:prod', 'processhtml:prod']);
+  grunt.registerTask('build:dev', ['js:dev', 'css:dev', 'processhtml:dev', 'img:dev']);
+  grunt.registerTask('build:prod', ['js:prod', 'css:prod', 'processhtml:prod', 'img:prod']);
   // Serve locally on :8000
   grunt.registerTask('serve:dev', ['connect:dev', 'focus:dev']);
   grunt.registerTask('serve:prod', ['connect:prod', 'focus:prod']);
