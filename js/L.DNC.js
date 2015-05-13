@@ -40,9 +40,9 @@ L.DNC.AppController = L.Class.extend({
 
         // build out menus
         this.menus = {
-            geo: new L.DNC.Menu('Geoprocessing', {  // New dropdown menu
-                items: ['buffer', 'union']          // Items in menu
-            }).addTo( this.menubar )                // Append to menubar
+            geo: new L.DNC.Menu('Geoprocessing', {   // New dropdown menu
+                items: ['buffer', 'center', 'union'] // Items in menu
+            }).addTo( this.menubar )                 // Append to menubar
         };
 
         this.geoOpsConfig = {
@@ -67,16 +67,14 @@ L.DNC.AppController = L.Class.extend({
 
     /*
     **
-    ** Lookup operation by name from operations configuration, render appropriate form
+    ** Lookup operation by name from operations configuration, validate selection,
+    ** and render appropriate form
     **
     */
     _handleOperationClick: function( opsConfig, e ) {
         var config = opsConfig.operations[e.action];
         try {
-            opsConfig.executor.validate(
-                this.getLayerSelection(),
-                config
-            );
+            opsConfig.executor.validate( this.getLayerSelection(), config );
         }
         catch(err) {
             this.notification.add({
@@ -892,12 +890,21 @@ L.DNC.Geo = L.Class.extend({
         createsLayer: true
     },
 
+    center: {
+        minFeatures: 1,
+        maxFeatures: 1,
+        description: 'Takes a FEatureCollection and return the absolute center point.',
+        createsLayer: true
+    },
+
     union: {
         minFeatures: 2,
         maxFeatures: 2,
         description: 'Takes two polygons and returns a combined polygon. If the input polygons are not contiguous, this function returns a MultiPolygon feature.',
         createsLayer: true
     }
+
+
 
 });
 
